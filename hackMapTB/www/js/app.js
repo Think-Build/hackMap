@@ -37,6 +37,15 @@ angular.module('starter', ['ionic', 'leaflet-directive', 'ngCordova', 'igTruncat
           }
         }
       })
+      .state('app.form', {
+        url: "/form",
+        views: {
+          'menuContent' :{
+            templateUrl: "templates/form.html",
+            controller: 'MapController'
+          }
+        }
+      })
 
     $urlRouterProvider.otherwise('/app/map');
 

@@ -1,6 +1,9 @@
 angular.module('starter').controller('MapController',
   [ '$scope',
     '$cordovaGeolocation',
+    '$location',
+    '$state',
+    '$log',
     '$stateParams',
     '$ionicModal',
     '$ionicPopup',
@@ -9,6 +12,9 @@ angular.module('starter').controller('MapController',
     function(
       $scope,
       $cordovaGeolocation,
+      $location,
+      $state,
+      $log,
       $stateParams,
       $ionicModal,
       $ionicPopup,
@@ -51,7 +57,11 @@ angular.module('starter').controller('MapController',
           }
         };
 
-        $scope.goTo(0);
+        for (var i=0; i<LocationsService.savedLocations.length; i++) {
+          $scope.goTo(i);
+        } 
+        
+        
 
       });
 
@@ -82,7 +92,21 @@ angular.module('starter').controller('MapController',
       $scope.saveLocation = function() {
         LocationsService.savedLocations.push($scope.newLocation);
         $scope.modal.hide();
-        $scope.goTo(LocationsService.savedLocations.length - 1);
+        $location.path('/app/form');
+        //$scope.goTo(LocationsService.savedLocations.length - 1);
+      };
+
+      $scope.data = {
+        username:  "",
+        lastname: ""
+      }
+
+      $scope.saveInfo = function() {
+        console.log($scope.data.lastname)
+        console.log(LocationsService.savedLocations[LocationsService.savedLocations.length - 1])
+        $state.go('app.map');
+        //$scope.goTo(LocationsService.savedLocations.length - 1);
+        //$scope.goTo(LocationsService.savedLocations.length - 1);
       };
 
       /**
@@ -92,20 +116,18 @@ angular.module('starter').controller('MapController',
       $scope.goTo = function(locationKey) {
 
         var location = LocationsService.savedLocations[locationKey];
-
         $scope.map.center  = {
-          lat : location.lat,
-          lng : location.lng,
-          zoom : 12
-        };
+              zoom : 12
+            };
+            $scope.map.markers[locationKey] = {
+              lat:location.lat,
+              lng:location.lng,
+              message: location.name,
+              focus: true,
+              draggable: false
+            };
 
-        $scope.map.markers[locationKey] = {
-          lat:location.lat,
-          lng:location.lng,
-          message: location.name,
-          focus: true,
-          draggable: false
-        };
+        
 
       };
 

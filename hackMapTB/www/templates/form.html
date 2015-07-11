@@ -1,0 +1,41 @@
+<ion-view title="Map">
+
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+
+  <ion-nav-buttons side="right">
+    <button ng-click="locate();" class="button button-icon icon ion-pinpoint"></button>
+  </ion-nav-buttons>
+
+  <ion-content data-tap-disabled="true">
+
+    <ion-content class="padding">
+
+    <form name="infoForm" ng-submit="saveInfo()">
+
+      <div class="list">
+      <label class="item item-input">
+        <input type="text" ng-model="data.username" ng-minlength="1" ng-maxlength="100"  placeholder="First Name" required>
+      </label>
+      <label class="item item-input">
+        <input type="text" ng-model="data.lastname" ng-minlength="1" ng-maxlength="100" placeholder="Last Name" required>
+      </label>
+      <label class="item item-input">
+        <textarea ng-model="data.comments" ng-minlength="1" ng-maxlength="100" placeholder="Comments" required></textarea>
+      </label>
+    </div>
+
+      <div class="padding">
+
+        <button class="button button-block button-balanced" ng-disabled="infoForm.$invalid">Save Location</button>
+
+      </div>
+
+    </form>
+
+  </ion-content>
+
+  </ion-content>
+
+</ion-view>
