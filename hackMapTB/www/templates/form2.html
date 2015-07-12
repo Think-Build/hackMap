@@ -1,0 +1,48 @@
+<ion-view title="Organización">
+
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+
+  <ion-nav-buttons side="right">
+    <button ng-click="locate();" class="button button-icon icon ion-pinpoint"></button>
+  </ion-nav-buttons>
+
+  <ion-content data-tap-disabled="true">
+
+    <ion-content class="padding">
+
+    <form name="infoForm" ng-submit="step2()">
+
+      <div class="list">
+        <label class="item item-input item-stacked-label">
+        <span class="input-label">Nombre</span>
+        <input type="text" ng-model="newOrganitation.name" ng-minlength="1" ng-maxlength="100" placeholder="Ej: José">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Linea de Actividad</span><br>
+        <input type="text" ng-model="newOrganitation.lineActivity" ng-minlength="1" ng-maxlength="100"  placeholder="Ej: 0987755739" required>
+      </label>
+      <label class="item item-input item-stacked-label">
+      <span class="input-label">Rango de edad</span><br>
+      <input type="text" ng-model="newOrganitation.rangeList" ng-minlength="1" ng-maxlength="100"  placeholder="Ej: 0-10" required>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Tiempo de existencia</span><br>
+        <input type="number" ng-model="newOrganitation.timeOfWork" ng-minlength="1" ng-maxlength="100" min="0" placeholder="Ej: 5" required>
+      </label>
+    </div>
+
+      <div class="padding">
+
+        <button class="button button-block button-balanced" ng-disabled="infoForm.$invalid">Save Location</button>
+
+      </div>
+
+    </form>
+
+  </ion-content>
+
+  </ion-content>
+
+</ion-view>

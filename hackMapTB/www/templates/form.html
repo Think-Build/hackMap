@@ -1,4 +1,4 @@
-<ion-view title="Map">
+<ion-view title="Entrevistado">
 
   <ion-nav-buttons side="left">
     <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
@@ -12,17 +12,28 @@
 
     <ion-content class="padding">
 
-    <form name="infoForm" ng-submit="saveInfo()">
+    <form name="infoForm" ng-submit="step1()">
 
       <div class="list">
-      <label class="item item-input">
-        <input type="text" ng-model="data.username" ng-minlength="1" ng-maxlength="100"  placeholder="First Name" required>
+        <label class="item item-input item-stacked-label">
+        <span class="input-label">Nombre</span>
+        <input type="text" ng-model="newInterviewer.name" ng-minlength="1" ng-maxlength="100" placeholder="Ej: José">
       </label>
-      <label class="item item-input">
-        <input type="text" ng-model="data.lastname" ng-minlength="1" ng-maxlength="100" placeholder="Last Name" required>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Teléfono</span><br>
+        <input type="tel" ng-model="newInterviewer.tlf" ng-minlength="1" ng-maxlength="100"  placeholder="Ej: 0987755739" required>
       </label>
-      <label class="item item-input">
-        <textarea ng-model="data.comments" ng-minlength="1" ng-maxlength="100" placeholder="Comments" required></textarea>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Dirección</span><br>
+        <input type="text" ng-model="newInterviewer.direccion" ng-minlength="1" ng-maxlength="100" placeholder="Ej: Av Rabida N55" required>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Correo electrónico</span><br>
+        <input type="email" ng-model="newInterviewer.email" ng-minlength="1" ng-maxlength="100" placeholder="Ej: jose@gmail.com">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Cargo dentro de la organización</span><br>
+        <input type="text" ng-model="newInterviewer.cargo" ng-minlength="1" ng-maxlength="100" placeholder="Ej: Gerente">
       </label>
     </div>
 

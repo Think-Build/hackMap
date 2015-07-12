@@ -1,0 +1,76 @@
+<ion-view title="Hitos de">
+
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+
+  <ion-nav-buttons side="right">
+    <button ng-click="locate();" class="button button-icon icon ion-pinpoint"></button>
+  </ion-nav-buttons>
+
+  <ion-content data-tap-disabled="true">
+
+    <ion-content class="padding">
+
+    <form name="infoForm" ng-submit="step3()">
+
+      <div class="list">
+        <label class="item item-input item-select">
+          <div class="input-label">
+            ¿Cómo es la gente?
+          </div>
+          <select ng-model="newHitos.howIsPeople">
+            <option value="Abierta" selected>Abierta</option>
+            <option value="Alegre" >Alegre</option>
+            <option value="Comunicativa">Comunicativa</option>
+            <option value="Tímida">Tímida</option>
+            <option value="Reservada">Reservada</option>
+          </select>
+        </label>
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Actividades Usuales
+          </div>
+          <select ng-model="newHitos.activityNomal">
+            <option value="Abierta" selected>DEPORTIVAS</option>
+            <option value="Alegre" >CULTURALES</option>
+            <option value="Comunicativa">SOCIALES</option>
+            <option value="Tímida">DE COLECTIVIDAD</option>
+          </select>
+        </label>
+        <label class="item item-input item-stacked-label">
+        <span class="input-label">Otras actividades usuales</span>
+        <input type="text" ng-model="newHitos.otherActivityNomal" ng-minlength="1" ng-maxlength="100">
+      </label>
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Necesidades en TICs
+          </div>
+          <select ng-model="newHitos.needTics">
+            <option value="Abierta" selected>WORD</option>
+            <option value="Alegre" >EXCEL</option>
+            <option value="Comunicativa">FORMACION BASICA-MEDIA-AVANZADA</option>
+            <option value="Tímida">REDES SOCIALES</option>
+            <option value="Reservada">SOFTWARE CONTABILIDAD</option>
+            <option value="Reservada">MANEJO TRIBUTARIO ONLINE</option>
+          </select>
+        </label>
+        <label class="item item-input item-stacked-label">
+        <span class="input-label">Otras Necesidades</span>
+        <input type="text" ng-model="newHitos.otherNeedTics" ng-minlength="1" ng-maxlength="100">
+      </label>
+    </div>
+
+      <div class="padding">
+
+        <button class="button button-block button-balanced" ng-disabled="infoForm.$invalid">Save Location</button>
+
+      </div>
+
+    </form>
+
+  </ion-content>
+
+  </ion-content>
+
+</ion-view>

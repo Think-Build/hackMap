@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'leaflet-directive', 'ngCordova', 'igTruncate'])
+angular.module('starter', ['ionic', 'leaflet-directive', 'ngCordova', 'igTruncate', 'pouchdb'])
 
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -37,12 +37,43 @@ angular.module('starter', ['ionic', 'leaflet-directive', 'ngCordova', 'igTruncat
           }
         }
       })
+
       .state('app.form', {
         url: "/form",
         views: {
           'menuContent' :{
             templateUrl: "templates/form.html",
-            controller: 'MapController'
+            controller: 'InfoController'
+          }
+        }
+      })
+
+      .state('app.form2', {
+        url: "/form2",
+        views: {
+          'menuContent' :{
+            templateUrl: "templates/form2.html",
+            controller: 'InfoController'
+          }
+        }
+      })
+
+      .state('app.form3', {
+        url: "/form3",
+        views: {
+          'menuContent' :{
+            templateUrl: "templates/form3.html",
+            controller: 'InfoController'
+          }
+        }
+      })
+
+      .state('app.archiveTiles', {
+        url: "/map/archiveTiles",
+        views: {
+          'menuContent': {
+            templateUrl: "templates/archiveTiles.html",
+            controller: 'ArchiveTilesCtrl'
           }
         }
       })

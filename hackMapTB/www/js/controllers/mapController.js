@@ -22,9 +22,6 @@ angular.module('starter').controller('MapController',
       InstructionsService
       ) {
 
-      /**
-       * Once state loaded, get put map on scope.
-       */
       $scope.$on("$stateChangeSuccess", function() {
 
         $scope.locations = LocationsService.savedLocations;
@@ -57,9 +54,15 @@ angular.module('starter').controller('MapController',
           }
         };
 
-        for (var i=0; i<LocationsService.savedLocations.length; i++) {
+        if(LocationsService.savedLocations.length > 0){
+          $scope.goToLastMarker();
+        }else{
+          $scope.goToInit();
+          $scope.locate();
+        }
+        /*for (var i=0; i<LocationsService.savedLocations.length; i++) {
           $scope.goTo(i);
-        } 
+        } */
         
         
 
@@ -97,17 +100,70 @@ angular.module('starter').controller('MapController',
       };
 
       $scope.data = {
-        username:  "",
-        lastname: ""
+        _id: "",
+        interviewer : {
+          name: "",
+          tlf: "",
+          direccion: "",
+          email: "",
+          cargo: ""
+        },
+        organization : {
+          name: "asasd",
+          lineActivity: "",
+          rangeList: "",
+          timeOfWork: ""
+        },
+         hitos : {
+          howIsPeople: "",
+          otherActivityNomal: "",
+          activityNomal: "",
+          needTics: "",
+          otherNeedTics: ""
+        }
       }
+      
 
-      $scope.saveInfo = function() {
-        console.log($scope.data.lastname)
-        console.log(LocationsService.savedLocations[LocationsService.savedLocations.length - 1])
-        $state.go('app.map');
-        //$scope.goTo(LocationsService.savedLocations.length - 1);
+      $scope.cacheOfflineTiles = function() {
+        console.log("click boton save")
+      if (navigator.onLine) {
+        // get the map extent
+        var mapViewExtent = getMapViewExtent();
+
+        // set the extent into the ViewExtentFactory
+        ViewExtentFactory.setExtent(getCurrentVisibleLayer(), mapViewExtent.topRight, mapViewExtent.bottomLeft, mapViewExtent.zoom);
+
+        // we set the current map provider so if we ever come back, we should try to use that map provider instead of the default provider
+        OfflineTilesFactory.setCurrentMapProvider(getCurrentVisibleLayer());
+
+        $location.path("/app/map/archiveTiles");
+      } else
+        $ionicPopup.alert({
+          title: 'Offline!',
+          template: 'You must be online to save a map!'
+        });
+    };
+
+    $scope.save = function() {
+        OfflineLayer = require('./OfflineLayer')
         //$scope.goTo(LocationsService.savedLocations.length - 1);
       };
+
+    var getMapViewExtent = function() {
+      var extent = $scope.map.getView().calculateExtent($scope.map.getSize());
+      var zoom = $scope.map.getView().getZoom();
+      var bottomLeft = ol.proj.transform(ol.extent.getBottomLeft(extent),
+        'EPSG:3857', 'EPSG:4326');
+      var topRight = ol.proj.transform(ol.extent.getTopRight(extent),
+        'EPSG:3857', 'EPSG:4326');
+
+      return {
+        topRight: new Point(topRight[1], topRight[0]),
+        bottomLeft: new Point(bottomLeft[1], bottomLeft[0]),
+        zoom: zoom
+      };
+    };
+      
 
       /**
        * Center map on specific saved location
@@ -117,7 +173,9 @@ angular.module('starter').controller('MapController',
 
         var location = LocationsService.savedLocations[locationKey];
         $scope.map.center  = {
-              zoom : 12
+              lat : location.lat,
+              lng : location.lng,
+              zoom : 18
             };
             $scope.map.markers[locationKey] = {
               lat:location.lat,
@@ -125,6 +183,22 @@ angular.module('starter').controller('MapController',
               message: location.name,
               focus: true,
               draggable: false
+            };
+
+        
+
+      };
+
+      $scope.goToLastMarker = function(){
+        $scope.goTo(LocationsService.savedLocations.length - 1);
+      }
+
+      $scope.goToInit = function() {
+
+        $scope.map.center  = {
+              lat : -0.180653,
+              lng : -78.467838,
+              zoom : 12
             };
 
         
@@ -141,7 +215,7 @@ angular.module('starter').controller('MapController',
           .then(function (position) {
             $scope.map.center.lat  = position.coords.latitude;
             $scope.map.center.lng = position.coords.longitude;
-            $scope.map.center.zoom = 15;
+            $scope.map.center.zoom = 18;
 
             $scope.map.markers.now = {
               lat:position.coords.latitude,
